@@ -1,0 +1,96 @@
+<div id="wrapper" class="toggled">
+    <side-bar></side-bar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="jumbotron bordered">
+                <div class="col-md-12 reportclass_test">
+                    <label for="periodSelect">Select period:</label>
+                    <select id="periodSelect" class="input-sm" ng-model="namesOfPeriod.value" ng-options="x for x in namesOfPeriod.values"
+                             ng-change="getPeriodData(namesOfPeriod.value)">
+                    </select>
+                    <div class="test" ng-show="isAdministrator">
+                        <div ng-show="isAdminRadio">
+                            <label for="select">Select role:</label>
+                            <select id="select" class="input-sm" ng-model="namesOfFunctionality.value" ng-options="x for x in namesOfFunctionality.values"
+                                    ng-change="getSelectFunc(namesOfFunctionality.value)">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Write and choose username:</label>
+                            <input ng-model="userInput" type="text" placeholder="Username"
+                                   ng-change="updateUser(userInput)" uib-typeahead="user as user.firstName + ' '
+                               +  user.lastName for user in users"
+                                   class="form-control" typeahead-show-hint="true" typeahead-min-length="3">
+                        </div>
+                        <a ng-click="getUser(userInput)" class="btn btn-info" role="button">Get User Inf.</a>
+                    </div>
+                </div>
+                <legend>{{title}}</legend>
+                <div >
+                    <!---->
+                    <div class="row" ng-if="requestList.length!=0">
+                        <div class="col-md-6">
+                            <div width="100%"  fusioncharts type="{{type}}" dataSource="{{reportForTime}}"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div width="100%"  fusioncharts type="pie2d" dataSource="{{pieChart}}"> </div>
+                        </div>
+                    </div>
+                    <div class="row"  ng-if="requestList.length!=0">
+                        <table st-table="displayedList" st-safe-src="requestList"
+                               class="table table-stripped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th ng-class="{'sort-ascent': isAscOrder(requestFields.NAME),
+                            'sort-descent': isDescOrder(requestFields.NAME)}" ng-click="orderRequestsByName()">Name</th>
+                                <th ng-class="{'sort-ascent': isAscOrder(requestFields.ESTIMATE),
+                            'sort-descent': isDescOrder(requestFields.ESTIMATE)}" ng-click="sortRequestsByEstimate()">Estimate</th>
+                                <th ng-class="{'sort-ascent': isAscOrder(requestFields.PRIORITY),
+                            'sort-descent': isDescOrder(requestFields.PRIORITY)}" ng-click="sortRequestsByPriority()">Priority</th>
+                                <th>Author</th>
+                                <th ng-class="{'sort-ascent': isAscOrder(requestFields.STATUS),
+                             'sort-descent': isDescOrder(requestFields.STATUS)}" ng-click="sortRequestsByStatus()">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="task-row" ng-repeat="requestItem in displayedList">
+                                <td class="text-center">
+                                    {{(currentPage - 1) * pageSize + $index + 1}}
+                                </td>
+                                <td class="text-center" ng-click="goToRequestDetailsPage(requestItem.id)">
+                                    {{requestItem.name}}
+                                </td>
+                                <td class="text-center" ng-click="goToRequestDetailsPage(requestItem.id)">
+                                     <span ng-if="!!requestItem.estimate">{{requestItem.estimate | date: "dd.MM.yyyy HH:mm"}}</span>
+                                    <span ng-if="!requestItem.estimate">Not specified</span>
+                                </td>
+                                <td class="text-center" ng-click="goToRequestDetailsPage(requestItem.id)">
+                                    {{requestItem.priority.name}}
+                                </td>
+                                <td class="text-center" ng-click="goToRequestDetailsPage(requestItem.id)">
+                                    <a ng-href="/secured/employee/person/{{requestItem.employee.id}}/details">
+                                        {{requestItem.employee.firstName}}
+                                        {{requestItem.employee.lastName}}
+                                    </a>
+                                </td>
+                                <td class="text-center" ng-click="goToRequestDetailsPage(requestItem.id)">
+                                    {{requestItem.status.name}}
+                                </td>
+                            </tbody>
+                        </table>
+                        <div class="center-block">
+                            <ul uib-pagination total-items="totalItems" ng-model="currentPage"
+                                max-size="maxSize" class="pagination-md" boundary-links="true"
+                                ng-change="pageChanged(currentPage)" items-per-page="pageSize"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="requestList.length==0">
+                    Don't have data for this period
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer-directive></footer-directive>

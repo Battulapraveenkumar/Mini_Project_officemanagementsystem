@@ -1,0 +1,13 @@
+.pass-wrapper{
+	position: relative;
+}
+.form-control_offset{
+	margin-top: 20px!important;
+}
+.incorrect{
+    position: relative;
+    color: #ff6464;
+	font-size: 15px;
+	left: 0;
+	bottom: 10px;
+}

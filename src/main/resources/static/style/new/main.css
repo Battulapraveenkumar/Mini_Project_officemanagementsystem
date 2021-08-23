@@ -1,0 +1,60 @@
+.navbar {
+    margin-bottom: 0;
+}
+
+.bordered {
+    border: solid 1px #c7c7c7;
+}
+
+.td-details {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+.form-sign-wrapper label{
+    text-align: left!important;
+}
+
+.subtask-container label{
+    text-align: left!important;
+}
+
+.subtask-container textarea{
+    height: auto;
+    resize: vertical;
+}
+
+.subtask-form label{
+    text-align: left!important;
+}
+.subtask-form {
+    margin-bottom: 10px;
+}
+.pull-up {
+    margin-bottom: 10px;
+}
+.subtask-accordion * {
+    transition: 0s;
+}
+
+.center-down {
+    margin-top: 20vh;
+}
+
+.center-down h2 {
+    text-align: center;
+}
+
+.word-break {
+    word-wrap:break-word;
+}
+
+.loading-screen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #2c5c3f;
+    z-index: 9999;
+}

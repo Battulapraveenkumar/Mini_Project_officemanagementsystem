@@ -1,0 +1,96 @@
+<div id="wrapper" class="toggled">
+    <side-bar></side-bar>
+    <div id="page-content-wrapper" ng-cloak="">
+        <div class="container-fluid">
+            <!-- Отута весь контент -->
+            <div class="jumbotron bordered">
+                <div class="row">
+                    <div class="col-md-10" ng-show="!requestListVisibility">
+                        <p class="empty-request-title">Request list is empty. To create new one - click following button:</p>
+                    </div>
+                    <div class="col-md-2 " ng-show="my">
+                        <a href="/secured/employee/newRequest" class="btn btn-success">Create Request</a>
+                    </div>
+                    <div class="col-md-12">
+                        <form class="form-inline">
+                            <label ng-show="!my">Priority
+                                <select ng-model="selectedPriority" ng-change="priorityChange(selectedPriority)"
+                                        data-ng-options="priority as priority.name for priority in priorities"
+                                        class="form-control">
+                                </select>
+                            </label>
+                        </form>
+                    </div>
+
+                    <div class="col-md-12" ng-show="requestListVisibility">
+                        <table st-table="requestList" st-safe-src="requests" class="table table-stripped">
+                            <thead>
+                            <th>#</th>
+                            <th ng-class="{'sort-ascent': isAscOrder(requestFields.NAME),
+                            'sort-descent': isDescOrder(requestFields.NAME)}" ng-click="orderRequestsByName()">Name
+                            </th>
+                            <th>{{personType}}</th>
+                            <th ng-class="{'sort-ascent': isAscOrder(requestFields.ESTIMATE),
+                            'sort-descent': isDescOrder(requestFields.ESTIMATE)}" ng-click="sortRequestsByEstimate()">
+                                Estimate
+                            </th>
+                            <th ng-class="{'sort-ascent': isAscOrder(requestFields.PRIORITY),
+                            'sort-descent': isDescOrder(requestFields.PRIORITY)}" ng-click="sortRequestsByPriority()">
+                                Priority
+                            </th>
+                            <th ng-class="{'sort-ascent': isAscOrder(requestFields.CREATE_TIME),
+                            'sort-descent': isDescOrder(requestFields.CREATE_TIME)}"
+                                ng-click="sortRequestsByCreatingTime()">
+                                Created
+                            </th>
+                            <th ng-class="{'sort-ascent': isAscOrder(requestFields.STATUS),
+                             'sort-descent': isDescOrder(requestFields.STATUS)}" ng-click="sortRequestsByStatus()" ng-show="my">
+                                Status
+                            </th>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="request in requestList" class="task-row">
+                                <td>{{(currentPage - 1) * pageSize + $index + 1}}</td>
+                                <td ng-click="goToRequestDetailsPage(request.id)">{{request.name}}</td>
+                                <td ng-show="!my" ng-click="goToRequestDetailsPage(request.id)">
+                                    {{request.employee.firstName}} {{request.employee.lastName}}
+                                </td>
+                                <td ng-show="my" ng-click="goToRequestDetailsPage(request.id)">
+                                    {{request.manager.firstName}} {{request.manager.lastName}}
+                                </td>
+                                <td ng-click="goToRequestDetailsPage(request.id)">{{request.estimate | date: "dd.MM.yyyy HH:mm"}}</td>
+                                <td ng-click="goToRequestDetailsPage(request.id)">{{request.priority.name}}</td>
+                                <td ng-click="goToRequestDetailsPage(request.id)">{{request.creationTime | date: "dd.MM.yyyy HH:mm"}}</td>
+                                <td ng-show="my" ng-click="goToRequestDetailsPage(request.id)">{{request.status.name}}</td>
+                                <td>
+                                    <!--<assign-to-me-btn ng-show="!my && isManager() && !isAssigned(request)"></assign-to-me-btn>-->
+                                    <div class="col-md-2" ng-show="!my && isManager() && !isAssigned(request)">
+                                        <button class="btn btn-info" ng-click="assignToMe(request.id)">
+                                            Assign request
+                                        </button>
+                                    </div>
+                                    <a ng-click="requestUpdate(request.id)" class="btn btn-info" ng-show="my">Edit</a>
+                                    <assign-to-smb-btn ng-show="!my && isAdmin() && !isAssigned(request)"></assign-to-smb-btn>
+                                    <a ng-click="requestDelete(request.id)" class="btn btn-danger" ng-show="my && isFree(request)">Cancel</a>
+                                    <a ng-click="unassign(request.id)" class="btn btn-danger" ng-show="isAssigned(request) && !my">Unassign</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" ng-model="pageSize" ng-change="pageChanged()">
+                            </div>
+                            <div class="center-block col-md-10">
+                                <ul uib-pagination total-items="totalItems" ng-model="currentPage"
+                                    max-size="maxSize" class="pagination-sm" boundary-links="true"
+                                    ng-change="pageChanged()" items-per-page="pageSize"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer-directive></footer-directive>

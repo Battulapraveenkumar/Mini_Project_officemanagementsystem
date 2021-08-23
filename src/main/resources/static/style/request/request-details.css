@@ -1,0 +1,96 @@
+.sort-ascent:before {
+    content: '\25B2';
+}
+
+.sort-descent:before {
+    content: '\25BC';
+}
+/*DELETE IT LATER*/
+.st-sort-ascent:before {
+    content: '\25B2';
+}
+
+.st-sort-descent:before {
+    content: '\25BC';
+}
+/*DELETE IT LATER*/
+#comments-wrapper {
+
+}
+
+.comment-wrapper {
+    height: 100%;
+    padding: 10px;
+    box-shadow: 0px 0px 2px -1px black;
+}
+
+.comment-header {
+    font-family: Roboto, serif, bold;
+    color: black;
+    font-size: 12px;
+    text-align: left;
+    border-bottom: 1px solid lightgray;
+}
+
+.comment-author {
+    color: #C6372F;
+    font-size: 17px;
+}
+
+.comment-date {
+    color: #AAA09F;
+    font-size: 14px;
+}
+
+.comment-body p {
+    font-family: Roboto, serif;
+    color: black;
+    font-size: 15px;
+    text-align: left;
+    white-space: pre-wrap;
+}
+label[for='comment']{
+    margin: 10px 0;
+}
+.send-comment-btn{
+    margin: 10px 0;
+}
+.history-row td{
+    text-align: center;
+}
+label[for="details"], label[for="manager"]{
+    text-align: left!important;
+}
+.show-more-wrapper{
+    text-align: center;
+}
+.show-more-text{
+    display: inline-block;
+    cursor: pointer;
+}
+.show-more-text:hover{
+    text-decoration: underline;
+}
+legend{
+    font-size: 22px;
+    font-weight: 400;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+add-to-request-group-btn{
+    display: inline-block;
+}
+.request-btn{
+    float: left;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.request-btn .btn{
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.request-btn-wrapper{
+    padding-left: 13px;
+}
